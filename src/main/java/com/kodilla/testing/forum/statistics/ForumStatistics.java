@@ -2,17 +2,15 @@ package com.kodilla.testing.forum.statistics;
 
 public class ForumStatistics {
 
-    //klasę obliczającą następujące statystyki:
-
-    //liczbę użytkowników,
-    //liczbę postów,
-    //liczbę komentarzy,
-    //średnią liczbę postów na użytkownika,
-    //średnią liczbę komentarzy na użytkownika,
-    //średnią liczbę komentarzy na post.
-
-
     public Class calculateAdvStatistics(Statistics statistics){
+        int users = statistics.usersNames().size();
+        int posts = statistics.postsCount();
+        int comments = statistics.commentsCount();
+
+        double postToUsersAverage = posts/users;
+        double commentsToUsersAverage = comments/users;
+        double commentsToPostsAverage = comments/posts;
+
         return ForumStatistics.class;
     }
 
