@@ -10,7 +10,7 @@ import static org.mockito.Mockito.*;
 public class ForumStatisticsTestSuite {
 
     @Test
-    public void testCalculateAdvStatistics(){
+    public void testCalculateAdvStatisticsZeroStatistics() {
         //Given zero statistics
         Statistics statisticsZero = mock(Statistics.class);
 
@@ -29,13 +29,15 @@ public class ForumStatisticsTestSuite {
 
         //Then
         Assert.assertEquals(zeroClass, forumStatisticsClass);
-
-        //Given2 posts =1000, users= 100, comments < posts
+    }
+    @Test
+    public void testCalculateAdvStatisticsLessComments() {
+        //Given posts =1000, users= 100, comments < posts
         Statistics statistics = mock(Statistics.class);
         int posts = 1000;
         when(statistics.postsCount()).thenReturn(posts);
         ArrayList<String> users = new ArrayList<>();
-        for (int i = 0; i <= 100; i++){
+        for (int i = 0; i <= 100; i++) {
             users.add(i, "a");
         }
         when(statistics.usersNames()).thenReturn(users);
@@ -45,13 +47,15 @@ public class ForumStatisticsTestSuite {
         ForumStatistics someStatistics = new ForumStatistics();
         Class forumStatistics = ForumStatistics.class;
 
-        //When2
+        //When
         Class someStatisticsClass = someStatistics.calculateAdvStatistics(statistics);
 
-        //Then2
+        //Then
         Assert.assertEquals(forumStatistics, someStatisticsClass);
-
-        //Given3 comments > posts
+    }
+    @Test
+    public void testCalculateAdvStatisticsMoreComments(){
+        //Given comments > posts
         Statistics statistics3 = mock(Statistics.class);
         int posts3 = 1000;
         when(statistics3.postsCount()).thenReturn(posts3);
@@ -59,17 +63,17 @@ public class ForumStatisticsTestSuite {
         for (int i = 0; i <= 100; i++){
             users3.add(i, "a");
         }
-        when(statistics3.usersNames()).thenReturn(users);
+        when(statistics3.usersNames()).thenReturn(users3);
         int commentsMore = 1001;
         when(statistics3.commentsCount()).thenReturn(commentsMore);
 
         ForumStatistics newStatistics = new ForumStatistics();
         Class forumStatisticsClass3 = ForumStatistics.class;
 
-        //When3
-        Class newForumStatistics = newStatistics.calculateAdvStatistics(statistics);
+        //When
+        Class newForumStatistics = newStatistics.calculateAdvStatistics(statistics3);
 
-        //Then3
+        //Then
         Assert.assertEquals(forumStatisticsClass3, newForumStatistics);
     }
 }
