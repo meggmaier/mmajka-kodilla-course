@@ -2,30 +2,62 @@ package com.kodilla.testing.forum.statistics;
 
 public class ForumStatistics {
 
+    private int users;
+    private int posts;
+    private int comments;
+    private double postToUsersAverage;
+    private double commentsToUsersAverage;
+    private double commentsToPostsAverage;
 
-    public Class calculateAdvStatistics(Statistics statistics){
-        int users = statistics.usersNames().size();
-        int posts = statistics.postsCount();
-        int comments = statistics.commentsCount();
+    public void calculateAdvStatistics(Statistics statistics){
+        users = statistics.usersNames().size();
+        posts = statistics.postsCount();
+        comments = statistics.commentsCount();
 
-        if (users != 0 && posts > users ) {
-            double postToUsersAverage = posts / users;
-        } else { double postToUsersAverage = 0;}
-
-         if (users != 0 && comments > users) {
-             double commentsToUsersAverage = comments / users;
-         } else { double commentsToUsersAverage = 0;}
-
-         if (posts != 0 && comments > posts){
-            double commentsToPostsAverage = comments / posts;
+        if (users != 0) {
+            postToUsersAverage = (double)posts / users;
         } else {
-            double commentsToPostsAverage = 0;
+            postToUsersAverage = 0;
         }
 
-        return ForumStatistics.class;
+         if (users != 0) {
+             commentsToUsersAverage = (double)comments / users;
+         } else {
+             commentsToUsersAverage = 0;
+         }
+
+         if (posts != 0){
+            commentsToPostsAverage = (double)comments / posts;
+        } else {
+            commentsToPostsAverage = 0;
+        }
+    }
+
+    public int getUsers() {
+        return users;
+    }
+
+    public int getPosts() {
+        return posts;
+    }
+
+    public int getComments() {
+        return comments;
+    }
+
+    public double getPostToUsersAverage() {
+        return postToUsersAverage;
+    }
+
+    public double getCommentsToUsersAverage() {
+        return commentsToUsersAverage;
+    }
+
+    public double getCommentsToPostsAverage() {
+        return commentsToPostsAverage;
     }
 
     public void showStatistics(){
-        System.out.println(ForumStatistics.class);    }
+    }
 
 }
