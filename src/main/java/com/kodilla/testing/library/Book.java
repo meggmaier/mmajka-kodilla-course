@@ -36,11 +36,20 @@ public class Book {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+        if (!(o instanceof Book)) return false;
 
+        Book book = (Book) o;
+
+        if (publicationYear != book.publicationYear) return false;
+        if (!title.equals(book.title)) return false;
+        return author.equals(book.author);
     }
 
     @Override
     public int hashCode() {
-
+        int result = title.hashCode();
+        result = 31 * result + author.hashCode();
+        result = 31 * result + publicationYear;
+        return result;
     }
 }

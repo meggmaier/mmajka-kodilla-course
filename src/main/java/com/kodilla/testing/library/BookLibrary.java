@@ -9,11 +9,16 @@ public class BookLibrary {
         this.libraryDatabase = libraryDatabase;
     }
     public List<Book> listBooksWithCondition(String titleFragment) {
-        List<Book> bookList = new ArrayList<Book>();
-        Book book = new Book("The book title", "The book author", 2000);
-        bookList.add(book);
-
-        // temporary returning list of one book
+        List<Book> bookList = new ArrayList<>();
+        if (titleFragment.length() < 3) return bookList;
+        List<Book> resultList = libraryDatabase
+                .listBooksWithCondition(titleFragment);
+        if (resultList.size() > 20) return bookList;
+        bookList = resultList;
         return bookList;
+    }
+    public List<Book> listBooksInHandsOf(LibraryUser libraryUser){
+        List<Book> list = libraryDatabase.listBooksInHandsOf(libraryUser);
+        return list;
     }
 }
