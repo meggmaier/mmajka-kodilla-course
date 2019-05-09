@@ -154,7 +154,7 @@ public class BoardTestSuite {
                  .average().getAsDouble();
 
          //Then
-        Assert.assertEquals(2, workingAverage, 0);
+        Assert.assertEquals(18.33, workingAverage, 0.01);
     }
 }
 
