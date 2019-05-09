@@ -11,7 +11,6 @@ public class ArrayOperationsTestSuite {
         //Given
         int[] numbers = new int []{1,23,456,7891,9,87,654,3,2};
 
-
         //When
         double arrayAverage = ArrayOperations.getAverage(numbers);
 

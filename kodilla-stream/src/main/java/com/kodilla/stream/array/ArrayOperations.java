@@ -6,13 +6,10 @@ import java.util.stream.IntStream;
 public interface ArrayOperations {
 
     static double getAverage(int[] numbers){
-        int first = numbers[0];
-        int last = numbers[numbers.length-1];
-        IntStream.range(first, last)
-                .toArray();
 
         OptionalDouble numbersAverage
-                = IntStream.range(first, last)
+                = IntStream.range(0, numbers.length)
+                            .map(n-> numbers[n])
                             .average();
         return numbersAverage.getAsDouble();
 
