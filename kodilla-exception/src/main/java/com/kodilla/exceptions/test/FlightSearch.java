@@ -16,7 +16,7 @@ public class FlightSearch {
         flights.put("Katowice Pyrzowice", true);
         flights.put("Łódź Lublinek", false);
 
-        if(flights.keySet().equals(flight.arrivalAirport) && flights.keySet().equals(flight.departureAirport)){
+        if(flights.keySet().equals(flight.getArrivalAirport()) && flights.keySet().equals(flight.getDepartureAirport())){
             System.out.println("You're flight is available for booking.");
         } else {
             throw new RouteNotFoundException();
