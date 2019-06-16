@@ -5,4 +5,5 @@ pluginManagement {
 }
 rootProject.name = 'testing-shapes'
 include 'kodilla-stream'
+include 'kodilla-exception'
 
