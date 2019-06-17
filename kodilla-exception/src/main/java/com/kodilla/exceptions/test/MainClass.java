@@ -1,9 +1,18 @@
 package com.kodilla.exceptions.test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainClass {
+
+    private static void checkFlight(Flight flightToFind, FlightSearch search){
+    try {
+        System.out.println("Checking: [" + flightToFind.getDepartureAirport() + "] to [" + flightToFind.getArrivalAirport() + "]");
+        search.findFlight(flightToFind);
+    } catch (RouteNotFoundException e) {
+        System.out.println("This route is unavailable. Please try other airports.");
+    } finally {
+        System.out.println("Have a nice day!");
+    }
+}
+
     public static void main(String[] args) {
 
         Flight flight1 = new Flight("Warszawa Modlin", "Wrocław");
@@ -12,31 +21,8 @@ public class MainClass {
 
         FlightSearch search = new FlightSearch();
 
-        try {
-            System.out.println("Checking: [" + flight1.getDepartureAirport() + "] to [" + flight1.getArrivalAirport() + "]");
-            search.findFlight(flight1);
-        } catch (RouteNotFoundException e) {
-            System.out.println("This route is unavailable. Please try other airports.");
-        } finally {
-           System.out.println("Have a nice day!");
-        }
-
-        try {
-            System.out.println("Checking: [" + flight2.getDepartureAirport() + "] to [" + flight2.getArrivalAirport() + "]");
-            search.findFlight(flight2);
-        } catch (RouteNotFoundException e) {
-            System.out.println("This route is unavailable. Please try other airports.");
-        } finally {
-            System.out.println("Have a nice day!");
-        }
-
-        try {
-            System.out.println("Checking: [" + flight3.getDepartureAirport() + "] to [" + flight3.getArrivalAirport() + "]");
-            search.findFlight(flight3);
-        } catch (RouteNotFoundException e) {
-            System.out.println("This route is unavailable. Please try other airports.");
-        } finally {
-            System.out.println("Have a nice day!");
-        }
+        checkFlight(flight1, search);
+        checkFlight(flight2, search);
+        checkFlight(flight3, search);
     }
 }
