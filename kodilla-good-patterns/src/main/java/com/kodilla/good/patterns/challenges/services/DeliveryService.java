@@ -1,4 +1,6 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.services;
+
+import com.kodilla.good.patterns.challenges.users.User;
 
 public class DeliveryService {
 

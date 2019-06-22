@@ -1,11 +1,11 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.users;
 
 public class User {
 
-String firstName;
-String lastName;
-String invoiceAddress;
-String deliveryAddress;
+private String firstName;
+private String lastName;
+private String invoiceAddress;
+private String deliveryAddress;
 
     public User(String firstName, String lastName, String invoiceAddress, String deliveryAddress) {
         this.firstName = firstName;

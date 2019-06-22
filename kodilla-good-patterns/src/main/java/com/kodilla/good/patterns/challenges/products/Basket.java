@@ -1,11 +1,10 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.products;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Basket  {
 
-    List<ProductInformation> basket;
+    private List<ProductInformation> basket;
 
     public Basket(List<ProductInformation> basket) {
         this.basket = basket;
@@ -19,7 +18,7 @@ public class Basket  {
 
             if(productInformation.getQuantityInStock() > 0){
 
-                basket.add(new ProductInformation(productInformation.getProductName(), productInformation.getQuantityInStock(), productInformation.getPrice()));
+                basket.add(productInformation);
 
             } else {
                 System.out.println("The product [" + productInformation.getProductName() + "] is out of stock.");

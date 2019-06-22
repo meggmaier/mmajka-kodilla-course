@@ -1,6 +1,7 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.services;
 
-import java.util.ArrayList;
+import com.kodilla.good.patterns.challenges.products.ProductInformation;
+
 import java.util.List;
 
 public class OrderRequest implements ProductOrder {

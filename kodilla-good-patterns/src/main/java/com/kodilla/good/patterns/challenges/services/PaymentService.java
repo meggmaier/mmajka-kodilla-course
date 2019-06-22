@@ -1,12 +1,16 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.services;
 
+import com.kodilla.good.patterns.challenges.products.ProductInformation;
+import com.kodilla.good.patterns.challenges.users.User;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public class PaymentService {
 
-    List<ProductInformation> listOfProducts;
-    User user;
-    PaymentMethod paymentMethod;
+    private List<ProductInformation> listOfProducts;
+    private User user;
+    private PaymentMethod paymentMethod;
 
     public PaymentService(List<ProductInformation> listOfProducts, User user, PaymentMethod paymentMethod) {
         this.listOfProducts = listOfProducts;
@@ -22,17 +26,17 @@ public class PaymentService {
 
     public void getInvoice(){
 
-        double toPay = 0;
+        BigDecimal toPay = BigDecimal.valueOf(0);
 
         System.out.println("Please find your invoice below.");
         System.out.println(user.getFirstName() + " " + user.getLastName()
                 + "\n" + user.getInvoiceAddress());
 
         for (ProductInformation products : listOfProducts){
-            double price = products.getPrice();
+            BigDecimal price = products.getPrice();
             System.out.println("Product: " + products.getProductName()
                     + "\n Price: " + price);
-            toPay = toPay + price;
+            toPay = toPay.add(price);
         }
 
         System.out.println("\n To pay: " + toPay);
