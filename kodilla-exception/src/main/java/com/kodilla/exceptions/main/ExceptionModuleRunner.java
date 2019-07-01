@@ -1,6 +1,5 @@
 package com.kodilla.exceptions.main;
 
-import com.kodilla.exceptions.io.FileReader;
 import com.kodilla.exceptions.io.FileReaderException;
 import com.kodilla.exceptions.io.FileReaderWithoutHandling;
 
