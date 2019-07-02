@@ -22,8 +22,12 @@ public class BigmacTestSuite {
 
         //When
         int howManyIngredients = bigmac.getIngredients().size();
+        Sauces sauce = bigmac.getSauce();
+        int howManyBurgers = bigmac.getBurgers();
 
         //Then
         Assert.assertEquals(4, howManyIngredients);
+        Assert.assertEquals(Sauces.THOUSAND_ISLAND_DRESSING, sauce);
+        Assert.assertEquals(1, howManyBurgers);
     }
 }
