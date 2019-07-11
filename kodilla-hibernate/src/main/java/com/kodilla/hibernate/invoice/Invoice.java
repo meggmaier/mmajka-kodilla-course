@@ -31,7 +31,7 @@ public class Invoice {
     }
 
     @NotNull
-    @Column(name = "INVOICE_NUMBER", unique = true)
+    @Column(name = "INVOICE_NUMBER")
     public String getNumber() {
         return number;
     }
@@ -40,7 +40,7 @@ public class Invoice {
             targetEntity = Item.class,
             mappedBy = "invoice",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     public List<Item> getItems() {
         return items;

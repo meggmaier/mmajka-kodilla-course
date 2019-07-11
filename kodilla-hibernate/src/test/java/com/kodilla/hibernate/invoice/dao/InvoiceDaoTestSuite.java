@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -45,18 +46,26 @@ public class InvoiceDaoTestSuite {
 
         productDao.save(product1);
         productDao.save(product2);
-        itemDao.save(item1);
-        itemDao.save(item2);
         invoiceDao.save(invoice);
 
         //When
 
         int invoiceIds = invoice.getId();
+        Optional<Invoice> optionalInvoice = invoiceDao.findById(invoiceIds);
 
         //Then
         Assert.assertNotEquals(0, invoiceIds);
+        Assert.assertTrue(optionalInvoice.isPresent());
 
         //CleanUp
-
+        try {
+            invoiceDao.deleteById(invoiceIds);
+            productDao.deleteById(product1.getId());
+            productDao.deleteById(product2.getId());
+            itemDao.deleteById(item1.getId());
+            itemDao.deleteById(item2.getId());
+        } catch (Exception e) {
+            //do nothing
+        }
     }
 }
