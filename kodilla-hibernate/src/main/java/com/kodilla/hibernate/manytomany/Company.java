@@ -5,6 +5,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedNativeQuery(
+        name = "Company.retrieveCompanyNameGivenThreeChar",
+        query = "FROM Company WHERE SUBSTR(name, 1, 3) = :KEY"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
