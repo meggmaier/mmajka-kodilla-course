@@ -5,6 +5,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "Company.retrieveCompanyNameGivenThreeChar",
+        query = "FROM Company WHERE name LIKE CONCAT('%',SUBSTR(:KEY, 1, 3),'%')"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
