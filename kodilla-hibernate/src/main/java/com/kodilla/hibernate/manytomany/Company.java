@@ -5,9 +5,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedNativeQuery(
+@NamedQuery(
         name = "Company.retrieveCompanyNameGivenThreeChar",
-        query = "FROM Company WHERE SUBSTR(name, 1, 3) = :KEY"
+        query = "FROM Company WHERE name LIKE CONCAT('%',SUBSTR(:KEY, 1, 3),'%')"
 )
 @Entity
 @Table(name = "COMPANIES")
