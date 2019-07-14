@@ -26,4 +26,11 @@ public class Airport {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
