@@ -1,16 +1,18 @@
 import com.kodilla.good.patterns.challenges.flights.Airport;
 import com.kodilla.good.patterns.challenges.flights.FlightSearcher;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class FlightSearcherTestSuite {
 
-    private HashMap<Airport, Airport> flights = new HashMap<>();
+
+    private List<Pair> flights = new ArrayList<>();
 
     private Airport pzn;
     private Airport wawa;
@@ -26,12 +28,19 @@ public class FlightSearcherTestSuite {
         krk = new Airport("Kraków");
         wrc = new Airport("Wrocław");
 
-        flights.put(pzn, wrc);
-        flights.put(wawa, krk);
-        flights.put(wawa, wrc);
-        flights.put(wrc, wawa);
-        flights.put(krk, wrc);
-        flights.put(pzn, wawa);
+        ImmutablePair<Airport, Airport> pznWrc = new ImmutablePair<>(pzn, wrc);
+        ImmutablePair<Airport, Airport> wawaKrk = new ImmutablePair<>(wawa, krk);
+        ImmutablePair<Airport, Airport> wawaWrc = new ImmutablePair<>(wawa, wrc);
+        ImmutablePair<Airport, Airport> wrcWawa = new ImmutablePair<>(wrc, wawa);
+        ImmutablePair<Airport, Airport> krkWrc = new ImmutablePair<>(krk, wrc);
+        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
+
+        flights.add(pznWrc);
+        flights.add(wawaKrk);
+        flights.add(wawaWrc);
+        flights.add(wrcWawa);
+        flights.add(krkWrc);
+        flights.add(pznWawa);
 
         flightSearcher = new FlightSearcher(flights);
     }
@@ -41,7 +50,7 @@ public class FlightSearcherTestSuite {
         //Given
 
         //When
-        List<Airport> testList = flightSearcher.searchAllArrivals(wawa);
+        List<Object> testList = flightSearcher.searchAllArrivals(wawa);
         System.out.println(testList);
 
         //Then
@@ -53,7 +62,7 @@ public class FlightSearcherTestSuite {
         //Given
 
         //When
-        List<Airport> testList = flightSearcher.searchAllDepartures(wawa);
+        List<Object> testList = flightSearcher.searchAllDepartures(wawa);
         System.out.println(testList);
 
         //Then
@@ -61,26 +70,14 @@ public class FlightSearcherTestSuite {
     }
 
     @Test
-    public void testHasDirectConnection(){
-        //Given
-
-        //When
-        boolean hasDirect = flightSearcher.hasDirectConnection(pzn, wawa);
-        boolean nonDirect = flightSearcher.hasDirectConnection(pzn, krk);
-
-        //Then
-        Assert.assertEquals(true, hasDirect);
-        Assert.assertEquals(false, nonDirect);
-    }
-
-    @Test
     public void testGetDirectConnection(){
         //Given
-        HashMap<Airport, Airport> expectedDirectMap = new HashMap<>();
-        expectedDirectMap.put(pzn, wawa);
+        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
+        List<Pair> expectedDirectMap = new ArrayList<>();
+        expectedDirectMap.add(pznWawa);
 
         //When
-        HashMap<Airport, Airport> testMap = flightSearcher.getConnection(pzn, wawa);
+        List<Pair> testMap = flightSearcher.getConnection(pzn, wawa);
 
         //Then
         Assert.assertEquals(expectedDirectMap, testMap);
@@ -89,13 +86,15 @@ public class FlightSearcherTestSuite {
     @Test
     public void testGetNonDirectConnection(){
         //Given
-        HashMap<Airport, Airport> expectedNonDirectMap = new HashMap<>();
+        ImmutablePair<Airport, Airport> wawaKrk = new ImmutablePair<>(wawa, krk);
+        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
+        List<Pair> expectedNonDirectMap = new ArrayList<>();
 
-        expectedNonDirectMap.put(pzn, wawa);
-        expectedNonDirectMap.put(wawa, krk);
+        expectedNonDirectMap.add(pznWawa);
+        expectedNonDirectMap.add(wawaKrk);
 
         //When
-        HashMap<Airport, Airport> testMap1 = flightSearcher.getConnection(pzn, krk);
+        List<Pair> testMap1 = flightSearcher.getConnection(pzn, krk);
         System.out.println(testMap1);
 
         //Then
