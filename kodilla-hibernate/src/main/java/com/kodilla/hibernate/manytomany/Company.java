@@ -5,6 +5,7 @@ import com.sun.istack.internal.NotNull;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @NamedQueries({
         @NamedQuery( name="Company.retrieveCompanyNameGivenThreeChar",
@@ -55,5 +56,18 @@ public class Company {
 
     private void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Company company = (Company) o;
+        return name.equals(company.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }
