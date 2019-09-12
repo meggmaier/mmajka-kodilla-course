@@ -1,14 +1,17 @@
 package com.kodilla.hibernate.manytomany;
 
 import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQuery(
-        name = "Company.retrieveCompanyNameGivenThreeChar",
-        query = "FROM Company WHERE name LIKE CONCAT('%',SUBSTR(:KEY, 1, 3),'%')"
-)
+@NamedQueries({
+        @NamedQuery( name="Company.retrieveCompanyNameGivenThreeChar",
+                query = "FROM Company WHERE name LIKE CONCAT('%',SUBSTR(:KEY, 1, 3),'%')"),
+        @NamedQuery( name="Company.retrieveCompanyNameGivenArg",
+                query = "FROM Company WHERE name LIKE CONCAT('%',:ARG,'%')")
+})
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
