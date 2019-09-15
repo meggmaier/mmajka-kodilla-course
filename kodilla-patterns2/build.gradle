@@ -1,11 +1,12 @@
 plugins {
-    id 'org.springframework.boot'
+    id 'org.springframework.boot' 
+    id 'io.spring.dependency-management' 
     id 'java'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'com.kodilla.testing.shapes'
+group = 'com.kodilla.testing-shapes'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -14,8 +15,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
-
 }

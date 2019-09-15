@@ -1,87 +1,73 @@
 package com.kodilla.good.patterns.challenges.flights;
 
-import java.util.HashMap;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class FlightSearcher {
 
-    private HashMap <Airport, Airport> fromToFlights;
-    private Airport homeAirport;
-    private Airport destinationAirport;
+    private List<Pair> fromToFlights;
 
-    public FlightSearcher(HashMap<Airport, Airport> fromToFlights, Airport homeAirport, Airport destinationAirport) {
+    public FlightSearcher(List<Pair> fromToFlights) {
         this.fromToFlights = fromToFlights;
-        this.homeAirport = homeAirport;
-        this.destinationAirport = destinationAirport;
     }
 
-    public HashMap<Airport, Airport> getFromToFlightsMap() {
-        return fromToFlights;
-    }
+    public List<Object> searchAllDepartures(Airport homeAirport){
 
-    public Airport getHomeAirport() {
-        return homeAirport;
-    }
-
-    public Airport getDestinationAirport() {
-        return destinationAirport;
-    }
-
-    public List<Airport> searchAllDepartures(){
-
-        return fromToFlights.entrySet().stream()
+        return fromToFlights.stream()
                 .filter(k -> k.getKey().equals(homeAirport))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
 
-    public List<Airport> searchAllArrivals(){
+    public List<Object> searchAllArrivals(Airport homeAirport){
 
-        return fromToFlights.entrySet().stream()
+        return fromToFlights.stream()
                 .filter(v -> v.getValue().equals(homeAirport))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
-    private boolean hasDirectConnection(){
+    public List<Pair> getConnection(Airport homeAirport, Airport destinationAirport){
 
-        return fromToFlights.entrySet().stream()
-                .filter(k -> k.getKey().equals(homeAirport))
-                .anyMatch(v -> v.getValue().equals(destinationAirport));
-    }
+        List<Pair> connection;
 
-    public HashMap<Airport, Airport> getDirectConnection(){
+        if(hasDirectConnection(homeAirport, destinationAirport)) {
 
-        HashMap<Airport, Airport> directConnection = new HashMap<>();
-
-        if(hasDirectConnection()) {
-
-                    fromToFlights.entrySet().stream()
+             connection = fromToFlights.stream()
                             .filter(k -> k.getKey().equals(homeAirport))
                             .filter(v -> v.getValue().equals(destinationAirport))
-                            .forEach(entry -> directConnection.put(entry.getKey(), entry.getValue()));
+                            .collect(Collectors.toList());
         } else {
-            System.out.println("There's no direct connections.");
-        }
+            System.out.println("There's no direct connection.");
+            System.out.println("Looking for alternative routs...");
 
-        return directConnection;
+            connection = fromToFlights.stream()
+                    .filter(el -> el.getKey().equals(homeAirport) || el.getValue().equals(destinationAirport))
+                    .collect(Collectors.toList());
+
+            for (int i = 0; i < connection.size()-1; i++) {
+                Pair current = connection.get(i);
+                Pair next = connection.get(i+1);
+                    //if (current.getValue().equals(next.get) {
+
+                   // }
+                }
+
+            }
+
+        return connection;
     }
 
-    public HashMap<Airport, Airport> getNonDirectConnection(Airport changeAirport){
+    private boolean hasDirectConnection(Airport homeAirport, Airport destinationAirport){
 
-        HashMap<Airport, Airport> possibleFlightConnections = new HashMap<>();
-
-        if(!hasDirectConnection()){
-
-             fromToFlights.entrySet().stream()
-                      //  .filter(el -> el.getKey().equals(homeAirport) || el.getValue().equals(destinationAirport))
-                        .filter(el -> el.getKey().equals(changeAirport) || el.getValue().equals(changeAirport))
-                        .forEach(entry -> possibleFlightConnections.put(entry.getKey(), entry.getValue()));
-
-        }
-
-        return possibleFlightConnections;
+        return fromToFlights.stream()
+                .filter(k -> k.getKey().equals(homeAirport))
+                .anyMatch(el -> el.getValue().equals(destinationAirport));
     }
+
+
 }
