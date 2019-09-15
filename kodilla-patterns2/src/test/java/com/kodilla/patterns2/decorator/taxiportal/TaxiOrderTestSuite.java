@@ -1,16 +1,15 @@
 package com.kodilla.patterns2.decorator.taxiportal;
 
 import org.junit.Test;
-
-import javax.swing.table.TableStringConverter;
 import java.math.BigDecimal;
-
 import static org.junit.Assert.*;
 
 public class TaxiOrderTestSuite {
 
     @Test
-    public void getCost() {
+
+    public void testBasicTaxiGetCost() {
+
     //Given
         TaxiOrder theOrder = new BasicTaxiOrder();
     //When
@@ -20,7 +19,9 @@ public class TaxiOrderTestSuite {
     }
 
     @Test
-    public void getDescription() {
+
+    public void testBasicTaxiOrderGetDescription() {
+
     //Given
         TaxiOrder theOrder = new BasicTaxiOrder();
     //When
@@ -102,4 +103,5 @@ public class TaxiOrderTestSuite {
     //Then
         assertEquals("Drive a course by Taxi Network variant VIP + child seat", description);
     }
+
 }
