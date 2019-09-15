@@ -96,7 +96,7 @@ public class FacadeTestSuite {
         assertTrue(foundThreeCompanies.contains(dataMaesters));
         assertEquals(foundOneCompany.size(), 1);
         assertTrue(foundOneCompany.contains(softwareMachine));
-        assertEquals(foundZeroCompanies.size(), 0);
+        assertTrue(foundZeroCompanies.isEmpty());
     }
 
     @Test
@@ -123,7 +123,7 @@ public class FacadeTestSuite {
         assertTrue(foundLinda.contains(lindaKovalsky));
         assertEquals(foundJohn.size(), 1);
         assertTrue(foundJohn.contains(johnSmith));
-        assertEquals(foundZero.size(), 0);
+        assertTrue(foundZero.isEmpty());
     }
 
 }

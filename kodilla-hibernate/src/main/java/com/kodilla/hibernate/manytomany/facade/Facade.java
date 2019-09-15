@@ -13,10 +13,10 @@ import java.util.List;
 @Service
 public class Facade {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Facade.class);
+
     private CompanyDao companyDao;
     private EmployeeDao employeeDao;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Facade.class);
 
     public Facade(CompanyDao companyDao, EmployeeDao employeeDao) {
         this.companyDao = companyDao;
@@ -27,7 +27,7 @@ public class Facade {
 
         List<Company> foundCompanies = companyDao.retrieveCompanyNameGivenArg(arg);
 
-        if (foundCompanies.size() == 0){
+        if (foundCompanies.isEmpty()){
             LOGGER.error(NotFoundException.ERR_COMPANY_NOT_FOUND);
             throw new NotFoundException(NotFoundException.ERR_COMPANY_NOT_FOUND);
         }
@@ -38,7 +38,7 @@ public class Facade {
 
         List<Employee> foundEmployees = employeeDao.retrieveEmployeesWithGivenArg(arg);
 
-        if (foundEmployees.size() == 0){
+        if (foundEmployees.isEmpty()){
             LOGGER.error(NotFoundException.ERR_EMPLOYEE_NOT_FOUND);
             throw new NotFoundException(NotFoundException.ERR_EMPLOYEE_NOT_FOUND);
         }
