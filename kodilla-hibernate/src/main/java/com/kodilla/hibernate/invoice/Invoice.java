@@ -1,6 +1,9 @@
 package com.kodilla.hibernate.invoice;
 
 import com.sun.istack.internal.NotNull;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Entity;
+import org.hibernate.annotations.Table;
 
 import javax.persistence.*;
 import java.util.ArrayList;
