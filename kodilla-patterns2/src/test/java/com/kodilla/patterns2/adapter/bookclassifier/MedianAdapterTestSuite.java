@@ -30,7 +30,7 @@ public class MedianAdapterTestSuite {
         MedianAdapter medianAdapter = new MedianAdapter();
 
         //When
-        int publicationYearMedian = medianAdapter.publicationYearMedian(bookSet);
+        int publicationYearMedian = medianAdapter.calculatePublicationYearMedian(bookSet);
 
         //Then
         assertEquals(1954, publicationYearMedian);
