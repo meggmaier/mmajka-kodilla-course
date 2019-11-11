@@ -1,4 +1,5 @@
 import com.kodilla.good.patterns.challenges.flights.Airport;
+import com.kodilla.good.patterns.challenges.flights.Connection;
 import com.kodilla.good.patterns.challenges.flights.FlightSearcher;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -11,29 +12,27 @@ import java.util.List;
 
 public class FlightSearcherTestSuite {
 
-
-    private List<Pair> flights = new ArrayList<>();
+    private List<Connection> flights = new ArrayList<>();
 
     private Airport pzn;
     private Airport wawa;
     private Airport krk;
-    private Airport wrc;
 
-    FlightSearcher flightSearcher;
+    private FlightSearcher flightSearcher;
 
     @Before
     public void prepare(){
         pzn = new Airport("Poznań");
         wawa = new Airport("Warszawa");
         krk = new Airport("Kraków");
-        wrc = new Airport("Wrocław");
+        Airport wrc = new Airport("Wrocław");
 
-        ImmutablePair<Airport, Airport> pznWrc = new ImmutablePair<>(pzn, wrc);
-        ImmutablePair<Airport, Airport> wawaKrk = new ImmutablePair<>(wawa, krk);
-        ImmutablePair<Airport, Airport> wawaWrc = new ImmutablePair<>(wawa, wrc);
-        ImmutablePair<Airport, Airport> wrcWawa = new ImmutablePair<>(wrc, wawa);
-        ImmutablePair<Airport, Airport> krkWrc = new ImmutablePair<>(krk, wrc);
-        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
+        Connection pznWrc = new Connection(pzn, wrc);
+        Connection wawaKrk = new Connection(wawa, krk);
+        Connection wawaWrc = new Connection(wawa, wrc);
+        Connection wrcWawa = new Connection(wrc, wawa);
+        Connection krkWrc = new Connection(krk, wrc);
+        Connection pznWawa = new Connection(pzn, wawa);
 
         flights.add(pznWrc);
         flights.add(wawaKrk);
@@ -50,7 +49,7 @@ public class FlightSearcherTestSuite {
         //Given
 
         //When
-        List<Object> testList = flightSearcher.searchAllArrivals(wawa);
+        List<Airport> testList = flightSearcher.searchAllArrivals(wawa);
         System.out.println(testList);
 
         //Then
@@ -62,7 +61,7 @@ public class FlightSearcherTestSuite {
         //Given
 
         //When
-        List<Object> testList = flightSearcher.searchAllDepartures(wawa);
+        List<Airport> testList = flightSearcher.searchAllDepartures(wawa);
         System.out.println(testList);
 
         //Then
@@ -72,12 +71,12 @@ public class FlightSearcherTestSuite {
     @Test
     public void testGetDirectConnection(){
         //Given
-        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
-        List<Pair> expectedDirectMap = new ArrayList<>();
+        Connection pznWawa = new Connection(pzn, wawa);
+        List<Connection> expectedDirectMap = new ArrayList<>();
         expectedDirectMap.add(pznWawa);
 
         //When
-        List<Pair> testMap = flightSearcher.getConnection(pzn, wawa);
+        List<Connection> testMap = flightSearcher.getConnection(pzn, wawa, krk);
 
         //Then
         Assert.assertEquals(expectedDirectMap, testMap);
@@ -86,15 +85,15 @@ public class FlightSearcherTestSuite {
     @Test
     public void testGetNonDirectConnection(){
         //Given
-        ImmutablePair<Airport, Airport> wawaKrk = new ImmutablePair<>(wawa, krk);
-        ImmutablePair<Airport, Airport> pznWawa = new ImmutablePair<>(pzn, wawa);
-        List<Pair> expectedNonDirectMap = new ArrayList<>();
+        Connection wawaKrk = new Connection(wawa, krk);
+        Connection pznWawa = new Connection(pzn, wawa);
+        List<Connection> expectedNonDirectMap = new ArrayList<>();
 
-        expectedNonDirectMap.add(pznWawa);
         expectedNonDirectMap.add(wawaKrk);
+        expectedNonDirectMap.add(pznWawa);
 
         //When
-        List<Pair> testMap1 = flightSearcher.getConnection(pzn, krk);
+        List<Connection> testMap1 = flightSearcher.getConnection(pzn, krk, wawa);
         System.out.println(testMap1);
 
         //Then
