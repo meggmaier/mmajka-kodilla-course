@@ -3,13 +3,10 @@ package com.kodilla.good.patterns.challenges.flights;
 
 import lombok.*;
 
-@Getter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
+@Value
 public class Connection {
 
-    Airport home;
-    Airport destination;
+    private Airport home;
+    private Airport destination;
 
 }
