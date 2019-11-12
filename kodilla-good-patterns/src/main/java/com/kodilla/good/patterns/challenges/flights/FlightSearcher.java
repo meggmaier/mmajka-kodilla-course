@@ -1,72 +1,59 @@
 package com.kodilla.good.patterns.challenges.flights;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class FlightSearcher {
 
-    private List<Pair> fromToFlights;
+    private List<Connection> fromToFlights;
 
-    public FlightSearcher(List<Pair> fromToFlights) {
+    public FlightSearcher(List<Connection> fromToFlights) {
         this.fromToFlights = fromToFlights;
     }
 
-    public List<Object> searchAllDepartures(Airport homeAirport){
+    public List<Airport> searchAllDepartures(Airport home){
 
         return fromToFlights.stream()
-                .filter(k -> k.getKey().equals(homeAirport))
-                .map(Map.Entry::getValue)
+                .filter(k -> k.getHome().equals(home))
+                .map(Connection::getDestination)
                 .collect(Collectors.toList());
     }
 
-    public List<Object> searchAllArrivals(Airport homeAirport){
+    public List<Airport> searchAllArrivals(Airport home){
 
         return fromToFlights.stream()
-                .filter(v -> v.getValue().equals(homeAirport))
-                .map(Map.Entry::getKey)
+                .filter(v -> v.getDestination().equals(home))
+                .map(Connection::getHome)
                 .collect(Collectors.toList());
     }
 
-    public List<Pair> getConnection(Airport homeAirport, Airport destinationAirport){
+    public List<Connection> getConnection(Airport home, Airport destination, Airport change){
 
-        List<Pair> connection;
+        List<Connection> connections = new ArrayList<>();
 
-        if(hasDirectConnection(homeAirport, destinationAirport)) {
+        if(hasDirectConnection(home, destination)) {
 
-             connection = fromToFlights.stream()
-                            .filter(k -> k.getKey().equals(homeAirport))
-                            .filter(v -> v.getValue().equals(destinationAirport))
-                            .collect(Collectors.toList());
+             connections.add(new Connection(home, destination));
+
         } else {
             System.out.println("There's no direct connection.");
             System.out.println("Looking for alternative routs...");
 
-            connection = fromToFlights.stream()
-                    .filter(el -> el.getKey().equals(homeAirport) || el.getValue().equals(destinationAirport))
+            connections = fromToFlights.stream()
+                    .filter(el -> el.getHome().equals(home) || el.getDestination().equals(destination))
+                    .filter(a -> a.getDestination().equals(change) || a.getHome().equals(change))
                     .collect(Collectors.toList());
+        }
 
-            for (int i = 0; i < connection.size()-1; i++) {
-                Pair current = connection.get(i);
-                Pair next = connection.get(i+1);
-                    //if (current.getValue().equals(next.get) {
-
-                   // }
-                }
-
-            }
-
-        return connection;
+        return connections;
     }
 
-    private boolean hasDirectConnection(Airport homeAirport, Airport destinationAirport){
+    private boolean hasDirectConnection(Airport home, Airport destination){
 
         return fromToFlights.stream()
-                .filter(k -> k.getKey().equals(homeAirport))
-                .anyMatch(el -> el.getValue().equals(destinationAirport));
+                .filter(k -> k.getHome().equals(home))
+                .anyMatch(el -> el.getDestination().equals(destination));
     }
 
 
